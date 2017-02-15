@@ -1,57 +1,44 @@
-var letter = require('./Letter');
+var Letter = require('./Letter.js');
 
-var Word = function (word) {
-    if (word == null)
-        throw new Error('Missing word!');
+function Word(word){
+    this.word = word;
+    this.letters = [];
+    this.makeAndPushLettersIntoWord = function(){
+        for (var i=0; i< this.word.length; i++){
+            var lett = new Letter(this.word[i]);
+            this.letters.push(lett);
+        }
+    },
+    this.display = function(){
+        var str = "";
+        for (var i=0; i < this.letters.length; i++){
+            str = str + this.letters[i].display();
+        }
 
-  this.word = word;
-  this.correct = 0;
-  this.letters = [];
-};
-
-
-Word.prototype.getLettersFromWord = function () {
-
-
-    for (var i = 0; i <= this.word.length-1; i++) {
-        this.letters.push(new letter(this.word[i]));
+        return str;
     }
-};
+    this.updateLetter = function(guess){
+        //check all of the letter objects and see if the guess matches
+        //if it does I update that letter's found to true
 
+        //another way
+        // var index = this.word.indexOf(guess);
+        // if (index > -1) this.letters[index].found = true;
 
-Word.prototype.guessLetter = function (letter) {
-    
-
-    var returned = false; // Doing the return like this incase of multiple letters.
-
-    for (var i = 0; i < this.letters.length; i++) {
-        if (this.letters[i].letter == letter) {
-            this.letters[i].isLine = false;
-
-            this.correct++;
-            returned = true;
+        //one way
+        for (var i=0; i<this.letters.length; i++){
+            if (this.letters[i].letter == guess) this.letters[i].found = true;
         }
     }
+}
 
-    return returned;
-};
-
-//Display blank line or letter.
-Word.prototype.show = function (){
-    if (this.word == null)
-        throw new Error('Missing word!');
-
-    var word = "";
-
-    for (var i = 0; i <= this.letters.length-1; i++) {
-        if (word.length == 0)
-            word += this.letters[i].show();
-        else
-            word += " " + this.letters[i].show();
-    }
-
-    console.log(word);
-};
-
+// var dog = new Word('dog');
+// dog.makeAndPushLettersIntoWord();
+// console.log(dog.letters)
+// console.log(dog.display())
+// dog.updateLetter('z');
+// dog.updateLetter('o');
+// dog.updateLetter('y');
+// console.log(dog.display())
 
 module.exports = Word;

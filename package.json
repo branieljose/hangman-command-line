@@ -1,23 +1,14 @@
 {
-  "name": "hangman-command-line",
+  "name": "hangman",
   "version": "1.0.0",
   "description": "",
   "main": "game.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/branieljose/hangman-command-line.git"
-  },
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/branieljose/hangman-command-line/issues"
-  },
-  "homepage": "https://github.com/branieljose/hangman-command-line#readme",
   "dependencies": {
-    "prompt": "^1.0.0",
-    "requirer": "0.0.4"
+    "inquirer": "^3.0.1"
   }
 }

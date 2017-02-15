@@ -1,37 +1,29 @@
-var prompt = require('prompt');
-var word = require('./word.js');
-var letter = process.argv[2];
-var wordList = [
-    'car',
-    'boat',
-    'bike',
-    'airplane',
-    'train',
-    'motorcycle',
-    'truck'
-]
+var inquirer = require('inquirer')
+var Word = require('./Word.js');
 
-var Game = function() {
-	this.toGuess =  new word(wordList[Math.floor(Math.random() * wordList.length)]);
-	this.toguess = getLettersFromWord();
-	this.gueeses = 9;
-	this.guessed = 0;
-    this.prompt();
+var words = ['jeff', 'john', 'rhyna'];
 
+var wordToPlay = words[Math.floor(Math.random()*words.length)];
+
+var wordObject = new Word(wordToPlay);
+wordObject.makeAndPushLettersIntoWord();
+console.log(wordObject.display());
+
+function askLetter(){
+    inquirer.prompt([
+    {
+    type: "input",
+    name: "guess",
+    message: "What letter do you guess? If you are done then say no."},
+    ]).then(function(data){
+        if (data.guess != 'no') {
+            wordObject.updateLetter(data.guess);
+
+            console.log(wordObject.display());
+
+            askLetter();
+        }
+    });
 }
 
- console.log(Game.toGuess);
-//  prompt.start();
-//   // 
-//   // Get two properties from the user: username and email 
-//   // 
-//   prompt.get(['username', 'email'], function (err, result) {
-//     // 
-//     // Log the results. 
-//     // 
-//     console.log('Command-line input received:');
-//     console.log('  username: ' + result.username);
-//     console.log('  email: ' + result.email);
-//   });
-// // word(letter);
-// // console.log(Word.prototype.show);
+askLetter();
